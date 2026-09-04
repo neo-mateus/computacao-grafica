@@ -3,9 +3,9 @@
 
 Este repositório tem por objetivo registrar os exercícios de computação gráfica praticados em aula. 
 A matéria foca-se em processamento de imagem digital, realizando pré-processamento, amostragem, quantização 
-e entre outros tratamentos para geração de imagens digitais.<br>
-<strong>Linguagem de Programação</strong>: Java.<br>
-<strong>Pacotes utilizados</strong>: BufferedImage, WritableRaster, Raster, Image, File, JFrame, JPanel.<br>
+e entre outros tratamentos para geração de imagens digitais.<br><br>
+<strong>Linguagem de Programação</strong>: Java.<br><br>
+<strong>Pacotes utilizados</strong>: BufferedImage, WritableRaster, Raster, Image, File, JFrame, JPanel.<br><br>
 <strong>IDE</strong>: NetBeans.
 
 Prof. Bruno Bustamante.
