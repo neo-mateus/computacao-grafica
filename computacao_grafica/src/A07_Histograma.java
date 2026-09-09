@@ -10,6 +10,7 @@ import java.awt.image.ColorModel;
 import java.awt.image.PixelGrabber;
 import java.io.File;
 
+
 public class A07_Histograma extends Frame {
         
     int w, h, hist[] = new int [256], max_hist = 0;   
@@ -34,6 +35,7 @@ public class A07_Histograma extends Frame {
             System.exit(0);
             
         }
+        
         
         img = Toolkit.getDefaultToolkit().getImage(nomeImg);
         MediaTracker mt = new MediaTracker(this);
