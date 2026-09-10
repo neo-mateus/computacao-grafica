@@ -5,6 +5,7 @@ import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -26,7 +27,10 @@ public class A09_1_OpeAritmetica extends JFrame {
         
         String img1 = "binZadeh.png";
         String img2 = "tabuleiro.png";
-        String op = "+";
+        Scanner entrada = new Scanner(System.in);
+        String op;
+        System.out.print("Escreva o operador: ");
+        op = entrada.nextLine();
         
         A09_1_OpeAritmetica math = new A09_1_OpeAritmetica(img1, op, img2);
         math.setVisible(true);
@@ -70,8 +74,21 @@ public class A09_1_OpeAritmetica extends JFrame {
         
         }
         
-        dest = adiciona(img1, img2);
+        if("+".equals(op))
+            dest = adiciona(img1, img2);
         
+        if("-".equals(op))
+            dest = subtrai(img1,img2);
+        
+        if("*".equals(op))
+            dest = multiplica(img1,img2);
+        
+        if("/".equals(op))
+            dest = divide(img1,img2);
+        else
+            System.out.println("Operador invalido (somente +, -, *, /)");
+        
+            
         w1 = dest.getWidth();
         h1 = dest.getHeight();
         
@@ -113,7 +130,98 @@ public class A09_1_OpeAritmetica extends JFrame {
         return dest;
         
     }
+
+    private BufferedImage subtrai(BufferedImage img1, BufferedImage img2) {
+        int w, h, pixel1 = 0, pixel2 = 0, subtracao = 0, tipo;
+        w = img1.getWidth();
+        h = img1.getHeight();
         
+        tipo = BufferedImage.TYPE_BYTE_GRAY;
+        BufferedImage dest = new BufferedImage(w, h, tipo);
+  
+        
+        Raster img1R = img1.getRaster();
+        Raster img2R = img2.getRaster();
+        WritableRaster destWR = dest.getRaster();
+        
+        for (int y = 0; y<h; y++)
+            for(int x = 0; x<w; x++){
+                pixel1 = img1R.getSample(x, y, 0);
+                pixel2 = img2R.getSample(x, y, 0);
+                subtracao = pixel2 - pixel1;
+                
+                if(subtracao < 0)
+                    subtracao = 0;
+                
+                destWR.setSample(x, y, 0, subtracao);
+            }
+        return dest;
+    }
+
+    private BufferedImage multiplica(BufferedImage img1, BufferedImage img2) {
+        int w, h, pixel1 = 0, pixel2 = 0, multiplicacao = 0, tipo;
+        w = img1.getWidth();
+        h = img1.getHeight();
+        
+        tipo = BufferedImage.TYPE_BYTE_GRAY;
+        BufferedImage dest = new BufferedImage(w, h, tipo);
+  
+        
+        Raster img1R = img1.getRaster();
+        Raster img2R = img2.getRaster();
+        WritableRaster destWR = dest.getRaster();
+        
+        for (int y = 0; y<h; y++)
+            for(int x = 0; x<w; x++){
+                pixel1 = img1R.getSample(x, y, 0);
+                pixel2 = img2R.getSample(x, y, 0);
+                multiplicacao = pixel1*pixel2/255;
+                
+                if(multiplicacao > 255)
+                    multiplicacao = 255;
+                destWR.setSample(x, y, 0, multiplicacao);
+            }
+        return dest;
+    }
+
+    private BufferedImage divide(BufferedImage img1, BufferedImage img2) {
+    int w, h, pixel1, pixel2, pixel, tipo;
+    double res;
+
+    w = img1.getWidth();
+    h = img1.getHeight();
+
+    tipo = BufferedImage.TYPE_BYTE_GRAY;
+    BufferedImage dest = new BufferedImage(w, h, tipo);
+
+    Raster img1R = img1.getRaster();
+    Raster img2R = img2.getRaster();
+    WritableRaster destWR = dest.getRaster();
+
+    for (int y = 0; y < h; y++)
+        for (int x = 0; x < w; x++) {
+
+            pixel1 = img1R.getSample(x, y, 0);
+            pixel2 = img2R.getSample(x, y, 0);
+
+            if (pixel2 == 0) {
+                pixel = 255;
+            } else {
+
+                res = (double) pixel1 / pixel2;
+
+                if (res <= 1) {
+                    pixel = (int) (127 * (res + 1));
+                } else {
+                    pixel = (int) (128 + (res / 2));
+                }
+            }
+
+            destWR.setSample(x, y, 0, pixel);
+        }
+
+    return dest;
+}
          
     
 }
