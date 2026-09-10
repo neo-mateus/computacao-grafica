@@ -85,8 +85,10 @@ public class A09_1_OpeAritmetica extends JFrame {
         
         if("/".equals(op))
             dest = divide(img1,img2);
-        else
+        else{
             System.out.println("Operador invalido (somente +, -, *, /)");
+            System.exit(0);
+        }
         
             
         w1 = dest.getWidth();
