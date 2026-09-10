@@ -77,13 +77,13 @@ public class A09_1_OpeAritmetica extends JFrame {
         if("+".equals(op))
             dest = adiciona(img1, img2);
         
-        if("-".equals(op))
+        else if("-".equals(op))
             dest = subtrai(img1,img2);
         
-        if("*".equals(op))
+        else if("*".equals(op))
             dest = multiplica(img1,img2);
         
-        if("/".equals(op))
+        else if("/".equals(op))
             dest = divide(img1,img2);
         else{
             System.out.println("Operador invalido (somente +, -, *, /)");
@@ -177,7 +177,7 @@ public class A09_1_OpeAritmetica extends JFrame {
             for(int x = 0; x<w; x++){
                 pixel1 = img1R.getSample(x, y, 0);
                 pixel2 = img2R.getSample(x, y, 0);
-                multiplicacao = pixel1*pixel2/255;
+                multiplicacao = pixel1*pixel2;
                 
                 if(multiplicacao > 255)
                     multiplicacao = 255;
