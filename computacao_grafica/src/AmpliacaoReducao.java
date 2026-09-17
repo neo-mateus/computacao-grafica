@@ -3,7 +3,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -46,10 +49,40 @@ public class AmpliacaoReducao extends JFrame {
             System.exit(0);
         }
         
+        setTitle("Amplia/Reduz imagem: " + file.getName());
         
+        dest = zoomImage(bimage, aFator, aTipoOp);
         
+        JLabel limg = new JLabel(new ImageIcon(dest));
+        getContentPane().add(new JScrollPane(limg));
+        setSize(bimage.getWidth(), bimage.getHeight());
+ 
     }
     
     public BufferedImage zoomImage(BufferedImage image, int fator, int tipoOp){
+        
+        BufferedImage bi =null;
+        
+        int w, h;
+        
+        switch(tipoOp){
+            case 1:
+                w = fator*image.getWidth();
+                h = fator*image.getHeight();
+                bi = new BufferedImage(w, h, image.getType());
+                for(int j = 0; j<h;j++)
+                    for(int i = 0; i<w;i++)
+                        bi.setRGB(i, j, image.getRGB(i/fator, j/fator));
+                break;
+            case 2:
+                w = (int)image.getWidth();
+                h = (int)image.getHeight();
+                bi = new BufferedImage(w, h, image.getType());
+                for (int j = 0; j < h; j++)
+                    for(int i = 0; i <w; i++)
+                        bi.setRGB(i, j, image.getRGB(i*fator, j*fator));
+                break;
+        }
+        return bi;
     }
 }
